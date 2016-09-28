@@ -9,7 +9,6 @@ use Carp;
 use charnames ':full';
 use Unicode::Normalize;
 use utf8;
-no warnings "experimental::regex_sets";
 
 =pod
 
@@ -25,35 +24,20 @@ Lingua::AR::Tashkeel - Subroutines for handling Arabic Vowels and Vowel marks
     use Lingua::AR::Tashkeel;
 
     # Strip all short vowels
-    Lingua::AR::Tashkeel->strip('مَكَرُونَة'); # => مكرونة
+    Lingua::AR::Tashkeel->strip('مَكَرُونَة'); ‎# => مكرونة
     # Heuristic for removing short vowels without causing ambiguity
-    Lingua::AR::Tashkeel->prune('فَتَّة');    # => فتّة
+    Lingua::AR::Tashkeel->prune('فَتَّة');    ‎# => فتّة
     # Heuristic for fixing mixed up short and long vowels
-    Lingua::AR::Tashkeel->fix('ماحشي');    # => مَحشي 
+    Lingua::AR::Tashkeel->fix('ماحشي');    ‎# => مَحشي 
 
 
 =head1 DESCRIPTION
     
-    Subroutines for working with Arabic long (حروف علة) and short vowels (حركات تشكيل)
+Subroutines for working with Arabic long (حروف علة) and short vowels (حركات تشكيل)
 
 =head1 METHODS AND ARGUMENTS
 
 =over 4
-
-=item new()
-
-Constructs a new Lingua::AR::Tashkeel instance.
-
-=cut
-
-sub new {
-	my $class = shift;
-    
-    my $self = {};
-
-	bless $self, $class;
-	return $self;
-}
 
 =item strip($string)
 
@@ -113,17 +97,11 @@ __END__
 
 =back
 
-=head1 REQUIREMENTS
-
-Needs Perl v5.18 or greater
-
 =head1 GIT REPOSITORY
 
-L<http://github.com/a3f/Lingua-AR-Vowels>
+L<http://github.com/athreef/Lingua-AR-TASHKEEL>
 
 =head1 SEE ALSO
-
-L<Perl|Perl>
 
 =head1 AUTHOR
 

@@ -9,6 +9,9 @@ use Carp;
 use charnames ':full';
 use Unicode::Normalize;
 use utf8;
+use Lingua::AR::Regexp;
+use Regexp::CharClasses::Helper;
+
 
 =pod
 
@@ -50,11 +53,7 @@ sub strip {
     my $string = NFD shift;
     
     #$string =~ s/(?[ (\p{InArabic} & \p{Mn}) - \N{ARABIC HAMZA ABOVE} ])//g;
-    $string =~ s/ (?=\p{InArabic}) (?![
-        \N{ARABIC HAMZA ABOVE}
-        \N{ARABIC MADDAH ABOVE}
-        \N{ARABIC HAMZA BELOW}
-    ]) \p{Mn}//gx;
+    $string =~ s/\p{Lingua::AR::Regexp::IsTashkeel}//gx;
 
 	return NFC $string;
 }
@@ -68,13 +67,20 @@ This is often preferable to strip, as Shaddas, or Dammas that indicate a passive
 
 =cut
 
+sub InOnesToKeepIn {
+    return Regexp::CharClasses::Helper::fmt(
+        '+Lingua::AR::Regexp::IsTashkeel',
+        '-ARABIC SHADDA',
+    );
+}
+
 sub prune {
     my $self = shift;
     my $string = NFD shift;
     
-    $string =~ s/(?=\p{InArabic})(?!\N{ARABIC SHADDA})\p{Mn}//g;
+    $string =~ s/\p{Lingua::AR::Tashkeel::InOnesToKeepIn}//g;
 
-	return $string;
+	return NFC $string;
 }
 
 =item fix($string)

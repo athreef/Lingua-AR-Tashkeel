@@ -5,6 +5,8 @@ package Lingua::AR::Tashkeel;
 # ABSTRACT: Subroutines for operating on Arabic vowel marks
 # VERSION
 
+use Exporter 'import';
+our @EXPORT_OK = qw(strip prune fix);
 use Carp;
 use charnames ':full';
 use Unicode::Normalize;
@@ -24,14 +26,14 @@ Lingua::AR::Tashkeel - Subroutines for handling Arabic Vowels and Vowel marks
 
 =head1 SYNOPSIS
 
-    use Lingua::AR::Tashkeel;
+    use Lingua::AR::Tashkeel qw(strip prune fix);
 
     # Strip all short vowels
-    Lingua::AR::Tashkeel->strip('مَكَرُونَة'); ‎# => مكرونة
+    strip('مَكَرُونَة'); ‎# => مكرونة
     # Heuristic for removing short vowels without causing ambiguity
-    Lingua::AR::Tashkeel->prune('فَتَّة');    ‎# => فتّة
+    prune('فَتَّة');    ‎# => فتّة
     # Heuristic for fixing mixed up short and long vowels
-    Lingua::AR::Tashkeel->fix('ماحشي');    ‎# => مَحشي 
+    fix('ماحشي');    ‎# => مَحشي 
 
 
 =head1 DESCRIPTION
@@ -49,7 +51,6 @@ Strips away all Arabic short vowels (Tashkeel).
 =cut
 
 sub strip {
-    my $self = shift;
     my $string = NFD shift;
     
     #$string =~ s/(?[ (\p{InArabic} & \p{Mn}) - \N{ARABIC HAMZA ABOVE} ])//g;
@@ -75,7 +76,6 @@ sub InOnesToKeepIn {
 }
 
 sub prune {
-    my $self = shift;
     my $string = NFD shift;
     
     $string =~ s/\p{Lingua::AR::Tashkeel::InOnesToKeepIn}//g;
@@ -92,7 +92,6 @@ This subroutine implements a heuristic for fixing such mix ups.
 =cut
 
 sub fix {
-    my $self = shift;
     my $string = NFD shift;
     
 	return $string;

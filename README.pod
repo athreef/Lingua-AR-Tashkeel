@@ -9,14 +9,14 @@ Lingua::AR::Tashkeel - Subroutines for handling Arabic Vowels and Vowel marks
 
 =head1 SYNOPSIS
 
-    use Lingua::AR::Tashkeel;
+    use Lingua::AR::Tashkeel qw(strip prune fix);
 
     # Strip all short vowels
-    Lingua::AR::Tashkeel->strip('مَكَرُونَة'); ‎# => مكرونة
+    strip('مَكَرُونَة'); ‎# => مكرونة
     # Heuristic for removing short vowels without causing ambiguity
-    Lingua::AR::Tashkeel->prune('فَتَّة');    ‎# => فتّة
+    prune('فَتَّة');    ‎# => فتّة
     # Heuristic for fixing mixed up short and long vowels
-    Lingua::AR::Tashkeel->fix('ماحشي');    ‎# => مَحشي 
+    fix('ماحشي');    ‎# => مَحشي 
 
 
 =head1 DESCRIPTION

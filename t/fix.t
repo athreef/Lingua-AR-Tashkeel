@@ -1,5 +1,6 @@
 use Test::More;
 use utf8;
+use open qw(:std :utf8);
 use Unicode::Normalize;
 
 BEGIN {
@@ -13,7 +14,7 @@ my %samples = (
 );
 
 while (my ($in, $expected) = each %samples) {
-    my $transformed = Lingua::AR::Tashkeel->fix($in);
+    my $transformed = Lingua::AR::Tashkeel::fix($in);
     is NFD($transformed), NFD($expected), "fixing $in";
 }
 done_testing;
